@@ -165,7 +165,7 @@ const daysContent = {
       "Excelente! Parece que te conoces muy bien. 🥺💖",
     wrongText:
       "La verdad que sos medio boluda si no adivinaste",
-      voucherText: "🎟️ Voucher : vale por una comidita juntos"
+      voucherText: "🎟️ Voucher : vale por un heladito riki"
   },
   22: {
     title: "Día 22 – Querida paluchi.",
