@@ -129,7 +129,7 @@ const daysContent = {
     fail:
       "Nellll, responde con una sola palabra porfi",
     voucherText:
-      "🎟️ Voucher especial: vale por wifi del crucero (si es que vamos a uno) JEJE QUE SORPRESAAAA  "
+      "🎟️ Voucher especial: vale por wifi del crucero JEJE QUE SORPRESAAAA  "
   },
   20: {
     title: "Día 20 – Frases poeticas",
@@ -164,7 +164,8 @@ const daysContent = {
     correctText:
       "Excelente! Parece que te conoces muy bien. 🥺💖",
     wrongText:
-      "La verdad que sos medio boluda si no adivinaste"
+      "La verdad que sos medio boluda si no adivinaste",
+      voucherText: "🎟️ Voucher : vale por una comidita juntos"
   },
   22: {
     title: "Día 22 – Querida paluchi.",
@@ -175,7 +176,8 @@ const daysContent = {
       "Algun dia te hare un calendario fisico con nuestros hijitos, los pondre a laburar a ellos que seguro van a saber hacer estas cositas," +
       "yo mientras los voy a alentar diciendole que si les sale bien les comprare mcdonald jeje (ellos no sabran que es un premio para mi tambien) "+
       "y les enseñare a hacer todas estas cosas asi pueden hacerte cositas lindas en tus cumples dia de la madre etcetcetc. Te despertaran con florecillas y comida rica siempre.\n\n "+
-      "De mientras espero que te conformes con este jijiji. Besitos se acerca el finalllllll. "
+      "De mientras espero que te conformes con este jijiji. Besitos se acerca el finalllllll. ",
+        audioSrc: "aaa.mp4" 
   },
   23: {
     title: "Día 23 – Adivina la segunda palabra",
@@ -186,7 +188,9 @@ const daysContent = {
     success:
       "adsjbibsdbjasbjdbjsa ADIVINASTE MI AMOR. Te felicito, ya pasaste todos los dias, mañana te dare un gran regalo por haber esperado tanto. Nos vemos!!!!",
     fail:
-      "Casiiiii, fijate con algo diferente, te ana..."
+      "Casiiiii, fijate con algo diferente, te ana...",  
+      voucherText: "🎟️ Voucher: vale porque te diga un dia dia TODO que si"
+
   },
   24: {
     title: "Día 24 – LLEGASTE AL FINAL",
@@ -460,6 +464,18 @@ function renderFrase(config) {
 
     container.appendChild(voucherBtn);
   }
+// AUDIO (si existe)
+if (config.audioSrc) {
+  const audioWrapper = document.createElement("div");
+  audioWrapper.style.marginTop = "14px";
+
+  const audio = document.createElement("audio");
+  audio.controls = true;
+  audio.src = config.audioSrc;
+
+  audioWrapper.appendChild(audio);
+  container.appendChild(audioWrapper);
+}
 
   modalBody.appendChild(container);
 }
@@ -644,13 +660,39 @@ function renderQuiz(config) {
     btn.textContent = optText;
 
     btn.addEventListener("click", () => {
-      if (idx === correctIndex) {
-        result.textContent =
-          config.correctText || "¡Correcto! Sos una nashe . ";
-      } else {
-        result.textContent =
-          config.wrongText || "Mmm, cerca. Pero creo que hay una opción más acertada.";
+if (idx === correctIndex) {
+  result.textContent =
+    config.correctText || "¡Correcto! Sos una nashe . ";
+
+  if (config.voucherText && !container.querySelector(".voucher-btn")) {
+    const voucherBtn = document.createElement("button");
+    voucherBtn.classList.add("btn-primary", "voucher-btn");
+    voucherBtn.textContent = "Ver voucher 🎟️";
+
+    voucherBtn.addEventListener("click", () => {
+      if (!container.querySelector(".voucher-box")) {
+        const voucherBox = document.createElement("div");
+        voucherBox.classList.add("voucher-box", "small-note");
+        voucherBox.textContent = config.voucherText;
+
+        voucherBox.style.marginTop = "10px";
+        voucherBox.style.padding = "10px 12px";
+        voucherBox.style.borderRadius = "14px";
+        voucherBox.style.border = "1px dashed rgba(255, 127, 191, 0.8)";
+        voucherBox.style.background = "rgba(255, 241, 249, 0.95)";
+
+        container.appendChild(voucherBox);
       }
+    });
+
+    container.appendChild(voucherBtn);
+  }
+
+} else {
+  result.textContent =
+    config.wrongText || "Mmm, cerca. Pero creo que hay una opción más acertada.";
+}
+
     });
 
     li.appendChild(btn);
