@@ -705,3 +705,325 @@ body {
     padding: 12px 10px;
   }
 }
+
+
+/* ===============================
+   DÍA 24 - CAMINITO DE NIVELES
+   =============================== */
+
+.levels-wrap {
+  margin-top: 10px;
+}
+
+.levels-path {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.level-node {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 44px 1fr 34px;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 12px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 193, 219, 0.9);
+  background: rgba(255, 255, 255, 0.92);
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.14s ease, box-shadow 0.14s ease, background 0.14s ease;
+}
+
+.level-node:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(255, 127, 191, 0.22);
+  background: #fff;
+}
+
+.level-node.locked {
+  opacity: 0.65;
+  cursor: not-allowed;
+  filter: grayscale(0.15);
+}
+
+.level-node.selected {
+  border-color: rgba(255, 79, 164, 0.9);
+  box-shadow: 0 12px 26px rgba(255, 79, 164, 0.25);
+}
+
+.level-node.completed .level-badge {
+  background: linear-gradient(135deg, rgba(40, 180, 99, 0.25), rgba(40, 180, 99, 0.08));
+  border-color: rgba(40, 180, 99, 0.5);
+}
+
+.level-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  color: var(--accent-strong);
+  background: rgba(255, 127, 191, 0.12);
+  border: 1px solid rgba(255, 193, 219, 0.9);
+}
+
+.level-meta .level-title {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.level-meta .level-sub {
+  margin-top: 2px;
+  font-size: 0.78rem;
+  color: var(--text-soft);
+}
+
+.level-state {
+  font-size: 1.05rem;
+  display: grid;
+  place-items: center;
+}
+
+.level-connector {
+  height: 12px;
+  width: 8px;
+  border-radius: 999px;
+  margin-left: 18px;
+  background: rgba(255, 127, 191, 0.18);
+}
+
+.level-connector.active {
+  background: rgba(40, 180, 99, 0.35);
+}
+
+.levels-content {
+  margin-top: 14px;
+  padding: 14px 12px 12px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 193, 219, 0.9);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.levels-header .levels-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent-strong);
+  background: rgba(255, 127, 191, 0.12);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.levels-h3 {
+  margin-top: 10px;
+  font-size: 1.05rem;
+}
+
+.levels-subtitle {
+  margin-top: 4px;
+  font-size: 0.82rem;
+  color: var(--text-soft);
+}
+
+/* Puzzle */
+.puzzle-wrap {
+  margin-top: 10px;
+}
+
+.puzzle-board {
+  --cell: 120px;
+  display: grid;
+  grid-template-columns: repeat(var(--puzzle-size), var(--cell));
+  grid-template-rows: repeat(var(--puzzle-size), var(--cell));
+  gap: 8px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.puzzle-cell {
+  width: var(--cell);
+  height: var(--cell);
+  border-radius: 16px;
+  border: 1px dashed rgba(255, 127, 191, 0.55);
+  background: rgba(255, 241, 249, 0.6);
+  overflow: hidden;
+  position: relative;
+}
+
+.puzzle-cell.over {
+  border-style: solid;
+  border-color: rgba(255, 79, 164, 0.85);
+  box-shadow: 0 0 0 3px rgba(255, 127, 191, 0.22);
+}
+
+.puzzle-cell.wrong {
+  animation: shake 0.25s ease;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-3px); }
+  100% { transform: translateX(0); }
+}
+
+.puzzle-tray {
+  --cell: 120px;
+  display: grid;
+  grid-template-columns: repeat(var(--puzzle-size), var(--cell));
+  gap: 8px;
+  margin-top: 12px;
+  justify-content: center;
+}
+
+.puzzle-piece {
+  width: var(--cell);
+  height: var(--cell);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 193, 219, 0.9);
+  background-color: #fff;
+  background-repeat: no-repeat;
+  box-shadow: 0 10px 18px rgba(255, 127, 191, 0.22);
+  cursor: grab;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+}
+
+.puzzle-piece:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 22px rgba(255, 127, 191, 0.28);
+  filter: brightness(1.02);
+}
+
+.puzzle-piece.dragging {
+  opacity: 0.7;
+  transform: scale(0.98);
+  cursor: grabbing;
+}
+
+.puzzle-piece.fixed {
+  cursor: default;
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.puzzle-win {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 18px;
+  border: 1px dashed rgba(40, 180, 99, 0.5);
+  background: rgba(40, 180, 99, 0.08);
+}
+
+/* Responsive: bajar tamaño piezas */
+@media (max-width: 420px) {
+  .puzzle-board,
+  .puzzle-tray {
+    --cell: 92px;
+    gap: 7px;
+  }
+}
+
+
+
+/* ===============================
+   PATCH RESPONSIVE (DÍA 24 - NIVELES)
+   =============================== */
+
+.levels-path{
+  display:flex;
+  flex-wrap:nowrap;
+  align-items:stretch;
+  gap:10px;
+  padding:12px;
+  margin-top:12px;
+  border-radius:18px;
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(255, 127, 191, 0.22);
+  overflow-x:auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.level-node{
+  min-width: 190px;
+  max-width: 260px;
+  flex: 0 0 auto;
+}
+
+.level-connector{
+  flex: 0 0 auto;
+  align-self:center;
+  height: 6px;
+  width: 26px;
+  margin: 0;
+  border-radius: 999px;
+}
+
+.levels-content{
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.levels-empty{
+  padding: 18px 12px;
+  border-radius: 18px;
+  border: 1px dashed rgba(255, 127, 191, 0.35);
+  background: rgba(255, 127, 191, 0.06);
+  text-align:center;
+}
+
+.levels-empty-title{
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+
+.levels-empty-sub{
+  margin-top: 6px;
+  font-size: .92rem;
+  color: var(--text-soft);
+}
+
+/* Puzzle: que siempre entre en pantalla */
+.puzzle-board,
+.puzzle-tray{
+  --cell: clamp(58px, 22vw, 120px);
+  width: 100%;
+}
+
+.puzzle-board{
+  justify-content: center;
+}
+
+.puzzle-tray{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap: 8px;
+}
+
+.puzzle-piece{
+  width: var(--cell);
+  height: var(--cell);
+}
+
+/* En pantallas muy angostas, achicar aún más */
+@media (max-width: 360px){
+  .puzzle-board,
+  .puzzle-tray{
+    --cell: clamp(50px, 21vw, 100px);
+    gap: 7px;
+  }
+  .level-node{
+    min-width: 170px;
+  }
+}
